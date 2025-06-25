@@ -1,2 +1,3 @@
-# ready-to-meet
-An all-in-one website to check all necessary settings before running into an online meeting.
+# Ready To Meet?
+
+Check all necessary configurations before joining an online meeting.

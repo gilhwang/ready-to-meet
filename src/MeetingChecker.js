@@ -7,10 +7,41 @@ export default function MeetingChecker() {
   const [networkSpeed, setNetworkSpeed] = useState(null);
   const [networkUpdateTimeLeft, setNetworkUpdateTimeLeft] =
     useState(networkUpdateTime);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const audio = new Audio(
+    "https://file-examples.com/storage/fe803e9596685d587a3e84a/2017/11/file_example_WAV_10MG.wav"
+  );
+
+  const handleSpeakerTestButtonClick = () => {
+    if (!audioRef.current) {
+      console.error("Audio object not initialized.");
+      return;
+    }
+
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+      setIsPlaying(true);
+    }
+  };
 
   useEffect(() => {
     let networkIntervalId;
     let countdownId;
+
+    // Speaker
+    audioRef.current = new Audio(
+      "https://file-examples.com/storage/fe803e9596685d587a3e84a/2017/11/file_example_WAV_10MG.wav"
+    );
+    const currentAudio = audioRef.current;
+    currentAudio.onended = () => {
+      setIsPlaying(false);
+    };
 
     // Webcam
     navigator.mediaDevices
@@ -87,6 +118,12 @@ export default function MeetingChecker() {
     }, 1000);
 
     return () => {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.src = "";
+      }
+      audioRef.current = null;
+
       clearInterval(networkIntervalId);
       clearInterval(countdownId);
     };
@@ -104,6 +141,21 @@ export default function MeetingChecker() {
       <div>
         <h2 className="text-3xl font-semibold mb-3">Battery Level</h2>
         <p>{battery !== null ? `${battery}%` : "Battery info not available"}</p>
+      </div>
+
+      <div>
+        <h2 className="text-3xl font-semibold mb-3">Speaker</h2>
+        <button
+          onClick={handleSpeakerTestButtonClick}
+          className={`rounded-lg  py-2 px-5 border border-transparent text-center text-xl text-white transition-all shadow hover:shadow-lg disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ${
+            isPlaying
+              ? `bg-red-700 hover:bg-red-500`
+              : `bg-blue-700 hover:bg-blue-500`
+          } `}
+        >
+          {isPlaying ? "Stop" : "Start"}
+        </button>
+        {isPlaying && <p className="text-xl">Playing...</p>}
       </div>
 
       <div>

@@ -10,10 +10,6 @@ export default function MeetingChecker() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
-  const audio = new Audio(
-    "https://file-examples.com/storage/fe803e9596685d587a3e84a/2017/11/file_example_WAV_10MG.wav"
-  );
-
   const handleSpeakerTestButtonClick = () => {
     if (!audioRef.current) {
       console.error("Audio object not initialized.");

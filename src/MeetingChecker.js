@@ -94,20 +94,20 @@ export default function MeetingChecker() {
 
   return (
     <div className="p-6 space-y-6 text-center">
-      <h1>Ready to Meet?</h1>
+      <h1 className="text-5xl">Ready to Meet?</h1>
 
       <div>
-        <h2 className="text-xl font-semibold">Webcam</h2>
+        <h2 className="text-3xl font-semibold mb-2">Webcam</h2>
         <video ref={videoRef} autoPlay className="w-64 h-48 border mx-auto" />
       </div>
 
       <div>
-        <h2 className="text-xl font-semibold">Battery Level</h2>
+        <h2 className="text-3xl font-semibold mb-3">Battery Level</h2>
         <p>{battery !== null ? `${battery}%` : "Battery info not available"}</p>
       </div>
 
       <div>
-        <h2 className="text-xl font-semibold">Network Speed</h2>
+        <h2 className="text-3xl font-semibold mb-3">Network Speed</h2>
         <p
           className={
             networkSpeed?.color === "green"

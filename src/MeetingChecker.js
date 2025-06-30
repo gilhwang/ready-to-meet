@@ -31,9 +31,7 @@ export default function MeetingChecker() {
     let countdownId;
 
     // Speaker
-    audioRef.current = new Audio(
-      "https://file-examples.com/storage/fe803e9596685d587a3e84a/2017/11/file_example_WAV_10MG.wav"
-    );
+    audioRef.current = new Audio(process.env.PUBLIC_URL + "/test_sound.wav");
     const currentAudio = audioRef.current;
     currentAudio.onended = () => {
       setIsPlaying(false);
